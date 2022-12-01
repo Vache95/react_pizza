@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import '../../scss/components/_categories.scss';
 import { dataCategories } from './data';
 
-const Categories = () => {
-  const [active, setActive] = useState(0);
+const Categories = ({value,onClickCategory}) => {
+  
 
   return (
     <div class="categories">
       <ul>
-        {dataCategories.map((e, i) => (
-          <li className={i === active ? 'active' : ''} onClick={() => setActive(i)} key={i}>
-            {e}
+        {dataCategories.map((categoryName, i) => (
+          <li className={value === i ? 'active' : ''} onClick={() => onClickCategory(i)} key={i}>
+            {categoryName}
           </li>
         ))}
       </ul>

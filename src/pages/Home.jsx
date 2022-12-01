@@ -8,21 +8,29 @@ import Categories from '../components/categories';
 const Home = () => {
   const [item, setItem] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [categoryId, setCategoryId] = useState(0);
+  const [sortType, setSortType] = useState({ name: 'популярности', sort: 'rating' });
+
   useEffect(() => {
-    fetch('https://63767cd7b5f0e1eb850d1867.mockapi.io/items')
+    setIsLoading(true);
+    fetch(
+      `https://63767cd7b5f0e1eb850d1867.mockapi.io/items?${
+        categoryId > 0 ? `category=${categoryId}` : ''
+      }&sortBy=${sortType.sort}&order=desc`,
+    )
       .then((res) => res.json())
       .then((arr) => {
         setItem(arr);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, []);
+  }, [sortType, categoryId]);
   return (
     <>
       <div class="container">
         <div class="content__top">
-          <Categories />
-          <Sort />
+          <Categories value={categoryId} onClickCategory={setCategoryId} />
+          <Sort value={sortType} onClickSortType={setSortType} />
         </div>
         <h2 class="content__title">Все пиццы</h2>
         <div class="content__items">

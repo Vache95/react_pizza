@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import '../../scss/components/_sort.scss';
 
-const Sort = () => {
+const Sort = ({ value, onClickSortType }) => {
   const [toggle, setToggle] = useState(false);
-  const [active,setActive] = useState(0)
-  const list = ['популярности','цене','алфавиту']
-  
+  const list = [
+    { name: 'популярности', sort: 'rating' },
+    { name: 'цене', sort: 'price' },
+    { name: 'алфавиту', sort: 'title' },
+  ];
+
+
   useEffect(() => {
     document.addEventListener('click', () => {
       setToggle(false);
@@ -32,17 +36,20 @@ const Sort = () => {
             e.stopPropagation();
             setToggle(!toggle);
           }}>
-          {list[active]}
+          {value.name}
         </span>
       </div>
       {toggle && (
         <div class="sort__popup">
           <ul>
-          {list.map((e, i) => (
-            <li className={active === i ? 'active' : ''} onClick={() => setActive(i)} key={i}>
-              {e}
-            </li>
-          ))}
+            {list.map((sortName, i) => (
+              <li
+                className={value.sort === sortName.sort ? 'active' : ''}
+                onClick={() => onClickSortType(sortName)}
+                key={i}>
+                {sortName.name}
+              </li>
+            ))}
           </ul>
         </div>
       )}
