@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { SortPizza } from '../../store/slices/filterSlice';
 import '../../scss/components/_sort.scss';
 
-const Sort = ({ value, onClickSortType }) => {
-  const [toggle, setToggle] = useState(false);
-  const list = [
-    { name: 'популярности', sort: 'rating' },
-    { name: 'цене', sort: 'price' },
-    { name: 'алфавиту', sort: 'title' },
-  ];
+export const list = [
+  { name: 'популярности', sortProperty: 'rating' },
+  { name: 'цене', sortProperty: 'price' },
+  { name: 'алфавиту', sortProperty: 'title' },
+];
 
+const Sort = () => {
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
+  const [toggle, setToggle] = useState(false);
+
+  const onClickListItem = (obj) => {
+    dispatch(SortPizza(obj));
+  };
 
   useEffect(() => {
     document.addEventListener('click', () => {
@@ -17,8 +25,8 @@ const Sort = ({ value, onClickSortType }) => {
   }, []);
 
   return (
-    <div class="sort">
-      <div class="sort__label">
+    <div className="sort">
+      <div className="sort__label">
         <svg
           width="10"
           height="6"
@@ -36,16 +44,16 @@ const Sort = ({ value, onClickSortType }) => {
             e.stopPropagation();
             setToggle(!toggle);
           }}>
-          {value.name}
+          {sort.name}
         </span>
       </div>
       {toggle && (
-        <div class="sort__popup">
+        <div className="sort__popup">
           <ul>
             {list.map((sortName, i) => (
               <li
-                className={value.sort === sortName.sort ? 'active' : ''}
-                onClick={() => onClickSortType(sortName)}
+                className={sort.sortProperty === sortName.sortProperty ? 'active' : ''}
+                onClick={() => onClickListItem(sortName)}
                 key={i}>
                 {sortName.name}
               </li>
