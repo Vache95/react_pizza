@@ -3,6 +3,8 @@ import Logo from '../../assets/img/pizza-logo.svg';
 import '../../scss/components/_button.scss';
 import { Link } from 'react-router-dom';
 import Search from '../search';
+
+
 const Header = () => {
   return (
     <div className="header">

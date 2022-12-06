@@ -50,7 +50,7 @@ const Home = () => {
       .then((res) => {
         setItem(res.data);
         setIsLoading(false);
-      });
+      })
     window.scrollTo(0, 0);
   }, [sortType, categoryId, pageCount]);
 
