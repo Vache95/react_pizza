@@ -29,6 +29,7 @@ const Home = () => {
   const pagefunction = (count) => {
     dispatch(seyPageCount(count));
   };
+  
   const pizza = item
     .filter((obj) => {
       if (obj.title.toLowerCase().includes(searchValue)) {
@@ -37,6 +38,7 @@ const Home = () => {
       return false;
     })
     .map((e, i) => <PizzaBlock {...e} key={i} />);
+
   const skeletons = [...new Array(6)].map((_, i) => <MyLoader key={i} />);
 
   useEffect(() => {
