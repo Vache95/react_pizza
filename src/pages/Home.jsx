@@ -5,10 +5,10 @@ import PizzaBlock from '../components/pizzaBlock';
 import Sort from '../components/sort';
 import Categories from '../components/categories';
 import Pagination from '../components/pagination';
-import { SearchContext } from '../App';
+// import { SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, seyPageCount, seyFilters } from '../store/slices/filterSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import qs from 'qs';
 import { list } from '../components/sort';
 
@@ -18,7 +18,7 @@ const Home = () => {
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
   const pageCount = useSelector((state) => state.filter.pageCount);
-  const {searchValue} = useSelector(selectFilter);
+  const { searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizza);
   const dispatch = useDispatch();
   // const { searchValue } = useContext(SearchContext);
@@ -38,7 +38,11 @@ const Home = () => {
       }
       return false;
     })
-    .map((e, i) => <PizzaBlock {...e} key={i} />);
+    .map((e, i) => (
+      <Link to={`/pizza/${e.id}`} key={i}>
+        <PizzaBlock {...e} />
+      </Link>
+    ));
 
   const skeletons = [...new Array(6)].map((_, i) => <MyLoader key={i} />);
 
