@@ -4,9 +4,10 @@ import "../../scss/components/_button.scss";
 import { Link } from "react-router-dom";
 import Search from "../search";
 import { useSelector } from "react-redux";
+import { selectCart } from "../../store/slices/pizzaSlice";
 
 const Header = () => {
-  const { items, totalPrice } = useSelector((state) => state.cart);
+  const { items, totalPrice } = useSelector(selectCart);
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
   return (
     <div className="header">

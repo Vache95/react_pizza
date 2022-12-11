@@ -11,16 +11,17 @@ import { setCategoryId, seyPageCount, seyFilters } from '../store/slices/filterS
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 import { list } from '../components/sort';
-import axios from 'axios';
+
+import { fetchPizzas, selectFilter, selectPizza } from '../store/slices/pizzaSlice';
 
 const Home = () => {
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
   const pageCount = useSelector((state) => state.filter.pageCount);
+  const {searchValue} = useSelector(selectFilter);
+  const { items, status } = useSelector(selectPizza);
   const dispatch = useDispatch();
-  const { searchValue } = useContext(SearchContext);
-  const [item, setItem] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const { searchValue } = useContext(SearchContext);
   const navigate = useNavigate();
 
   const onClickCategory = (id) => {
@@ -29,8 +30,8 @@ const Home = () => {
   const pagefunction = (count) => {
     dispatch(seyPageCount(count));
   };
-  
-  const pizza = item
+
+  const pizza = items
     .filter((obj) => {
       if (obj.title.toLowerCase().includes(searchValue)) {
         return true;
@@ -42,17 +43,13 @@ const Home = () => {
   const skeletons = [...new Array(6)].map((_, i) => <MyLoader key={i} />);
 
   useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get(
-        `https://63767cd7b5f0e1eb850d1867.mockapi.io/items?page=${pageCount}&limit=4&${
-          categoryId > 0 ? `category=${categoryId}` : ''
-        }&sortBy=${sortType}&order=desc`,
-      )
-      .then((res) => {
-        setItem(res.data);
-        setIsLoading(false);
-      })
+    dispatch(
+      fetchPizzas({
+        pageCount,
+        categoryId,
+        sortType,
+      }),
+    );
     window.scrollTo(0, 0);
   }, [sortType, categoryId, pageCount]);
 
@@ -80,7 +77,7 @@ const Home = () => {
           <Sort />
         </div>
         <h2 className="content__title">Все пиццы</h2>
-        <div className="content__items">{isLoading ? skeletons : pizza}</div>
+        <div className="content__items">{status ? skeletons : pizza}</div>
         <Pagination pageCount={pageCount} onChange={pagefunction} />
       </div>
     </>
