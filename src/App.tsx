@@ -1,10 +1,8 @@
-// import Header from './components/header';
 import Home from './pages/Home';
 import { Routes, Route } from 'react-router-dom';
 import './scss/app.scss';
 import NotFound from './pages/NotFound';
 import Cart from './pages/Cart';
-// import { createContext, useState } from 'react';
 import FullPizza from './pages/FullPizza';
 import MainLayout from './layouts/MainLayout';
 

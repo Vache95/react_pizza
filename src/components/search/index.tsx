@@ -1,30 +1,29 @@
-import React, { useCallback, useRef, useState } from 'react';
-import styles from './search.module.scss';
-import Close from '../../assets/img/close.svg';
-import debounce from 'lodash.debounce';
-import { setSearchValue } from '../../store/slices/filterSlice';
-import { useDispatch } from 'react-redux';
+import { ChangeEventHandler, FC, useCallback, useRef, useState } from "react";
+import styles from "./search.module.scss";
+import Close from "../../assets/img/close.svg";
+import debounce from "lodash.debounce";
+import { setSearchValue } from "../../store/slices/filterSlice";
+import { useDispatch } from "react-redux";
 
-const Search = () => {
-  const [value, setValue] = useState('');
-  const inputRef = useRef();
+const Search: FC = () => {
+  const [value, setValue] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
-  const onClickClear = () => {
-    // setSearchValue('');
-    dispatch(setSearchValue(''));
-    setValue('');
-    inputRef.current.focus();
+  const onClickClear = (): void => {
+    dispatch(setSearchValue(""));
+    setValue("");
+    inputRef.current?.focus();
   };
 
   const updateInput = useCallback(
-    debounce((str) => {
+    debounce((str: string) => {
       dispatch(setSearchValue(str));
     }, 1000),
-    [],
+    []
   );
 
-  const onChangeInputs = (event) => {
+  const onChangeInputs = (event: any) => {
     setValue(event.target.value);
     updateInput(event.target.value);
   };
@@ -43,9 +42,7 @@ const Search = () => {
         placeholder="Поиск пиццы..."
         value={value}
       />
-      {value && (
-        <img className={styles.clearIcon} src={Close} alt="cose" onClick={() => onClickClear()} />
-      )}
+      {value && <img className={styles.clearIcon} src={Close} alt="cose" onClick={() => onClickClear()} />}
     </div>
   );
 };

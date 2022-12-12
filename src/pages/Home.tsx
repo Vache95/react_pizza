@@ -1,58 +1,53 @@
-import React, { useContext } from 'react';
-import { useEffect, useState } from 'react';
-import MyLoader from '../components/pizzaBlock/components/skeleton';
-import PizzaBlock from '../components/pizzaBlock';
-import Sort from '../components/sort';
-import Categories from '../components/categories';
-import Pagination from '../components/pagination';
-// import { SearchContext } from '../App';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, seyPageCount, seyFilters } from '../store/slices/filterSlice';
-import { useNavigate, Link } from 'react-router-dom';
-import qs from 'qs';
-import { list } from '../components/sort';
+import React, { FC } from "react";
+import { useEffect } from "react";
+import MyLoader from "../components/pizzaBlock/components/skeleton";
+import PizzaBlock from "../components/pizzaBlock";
+import Sort from "../components/sort";
+import Categories from "../components/categories";
+import Pagination from "../components/pagination";
+import { useSelector, useDispatch } from "react-redux";
+import { setCategoryId, seyPageCount, seyFilters } from "../store/slices/filterSlice";
+import { useNavigate } from "react-router-dom";
+import qs from "qs";
+import { list } from "../components/sort";
 
-import { fetchPizzas, selectFilter, selectPizza } from '../store/slices/pizzaSlice';
+import { fetchPizzas, selectFilter, selectPizza } from "../store/slices/pizzaSlice";
 
-const Home = () => {
-  const categoryId = useSelector((state) => state.filter.categoryId);
-  const sortType = useSelector((state) => state.filter.sort.sortProperty);
-  const pageCount = useSelector((state) => state.filter.pageCount);
+const Home: FC = () => {
+  const categoryId: any = useSelector<any>((state) => state.filter.categoryId);
+  const sortType: any = useSelector<any>((state) => state.filter.sort.sortProperty);
+  const pageCount: any = useSelector<any>((state) => state.filter.pageCount);
   const { searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizza);
   const dispatch = useDispatch();
-  // const { searchValue } = useContext(SearchContext);
   const navigate = useNavigate();
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number): void => {
     dispatch(setCategoryId(id));
   };
-  const pagefunction = (count) => {
+  const pagefunction = (count: number): void => {
     dispatch(seyPageCount(count));
   };
 
   const pizza = items
-    .filter((obj) => {
+    .filter((obj: any) => {
       if (obj.title.toLowerCase().includes(searchValue)) {
         return true;
       }
       return false;
     })
-    .map((e, i) => (
-      <Link to={`/pizza/${e.id}`} key={i}>
-        <PizzaBlock {...e} />
-      </Link>
-    ));
+    .map((e: any, i: any) => <PizzaBlock {...e} key={i} />);
 
   const skeletons = [...new Array(6)].map((_, i) => <MyLoader key={i} />);
 
   useEffect(() => {
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         pageCount,
         categoryId,
         sortType,
-      }),
+      })
     );
     window.scrollTo(0, 0);
   }, [sortType, categoryId, pageCount]);

@@ -1,26 +1,32 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SortPizza } from "../../store/slices/filterSlice";
 import "../../scss/components/_sort.scss";
 
-export const list = [
+type sortItem = {
+  name: string;
+  sortProperty: string;
+};
+
+export const list: sortItem[] = [
   { name: "популярности", sortProperty: "rating" },
   { name: "цене", sortProperty: "price" },
   { name: "алфавиту", sortProperty: "title" },
 ];
 
-const Sort = () => {
+const Sort: FC = () => {
   const dispatch = useDispatch();
-  const sort = useSelector((state) => state.filter.sort);
-  const sortRef = useRef();
+  const sort: any = useSelector<any>((state) => state.filter.sort);
+
+  const sortRef = useRef(null);
   const [toggle, setToggle] = useState(false);
 
-  const onClickListItem = (obj) => {
+  const onClickListItem = (obj: object): void => {
     dispatch(SortPizza(obj));
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any): void => {
       if (!event.path.includes(sortRef.current)) {
         setToggle(false);
       } else {

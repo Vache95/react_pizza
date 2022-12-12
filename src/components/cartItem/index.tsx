@@ -1,15 +1,28 @@
+import { type } from "@testing-library/user-event/dist/type";
+import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { addItem, minusItem, removeItem } from "../../store/slices/cartSlice";
 
-const CartItem = ({ id, title, type,size, price, count, imageUrl }) => {
+type CartItemProps = {
+  id: string;
+  title: string;
+  type: string;
+  size: number;
+  price: number;
+  count: number;
+  imageUrl: string;
+};
+
+const CartItem: FC<CartItemProps> = ({ id, title, type, size, price, count, imageUrl }) => {
   const dispach = useDispatch();
-  const onClickPlus = () => {
+
+  const onClickPlus = (): void => {
     dispach(addItem({ id }));
   };
-  const onClickMinus = () => {
+  const onClickMinus = (): void => {
     dispach(minusItem(id));
   };
-  const onClickRemove = () => {
+  const onClickRemove = (): void => {
     if (window.confirm("Are you sure you want to remove?")) {
       dispach(removeItem(id));
     }
@@ -21,7 +34,9 @@ const CartItem = ({ id, title, type,size, price, count, imageUrl }) => {
       </div>
       <div className="cart__item-info">
         <h3>{title}</h3>
-        <p>{type}, {size} см.</p>
+        <p>
+          {type}, {size} см.
+        </p>
       </div>
       <div className="cart__item-count">
         <div onClick={onClickMinus} className="button button--outline button--circle cart__item-count-minus">
