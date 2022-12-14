@@ -1,10 +1,12 @@
-import Home from './pages/Home';
-import { Routes, Route } from 'react-router-dom';
-import './scss/app.scss';
-import NotFound from './pages/NotFound';
-import Cart from './pages/Cart';
-import FullPizza from './pages/FullPizza';
-import MainLayout from './layouts/MainLayout';
+import Home from "./pages/Home";
+import { Routes, Route } from "react-router-dom";
+import "./scss/app.scss";
+import NotFound from "./pages/NotFound";
+import FullPizza from "./pages/FullPizza";
+import MainLayout from "./layouts/MainLayout";
+import { Suspense, lazy } from "react";
+
+const Cart = lazy(() => import(/* webpackChunkName: "Cart" */ "./pages/Cart"));
 
 function App() {
   return (
@@ -12,7 +14,14 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/cart"
+            element={
+              <Suspense fallback={<div>loading...</div>}>
+                <Cart />
+              </Suspense>
+            }
+          />
           <Route path="/pizza/:id" element={<FullPizza />} />
           <Route path="*" element={<NotFound />} />
         </Route>
