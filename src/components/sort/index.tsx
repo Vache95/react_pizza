@@ -1,5 +1,5 @@
-import { FC, useEffect, useRef, useState, MouseEvent, MouseEventHandler } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { FC, useEffect, useRef, useState, MouseEvent} from "react";
+import { useSelector} from "react-redux";
 import { SortPizza } from "../../store/slices/filterSlice";
 import "../../scss/components/_sort.scss";
 import { useAppDispatch } from "../../store/store";
@@ -16,7 +16,6 @@ export const list: sortItem[] = [
   { name: "цене", sortProperty: "price" },
   { name: "алфавиту", sortProperty: "title" },
 ];
-
 const Sort: FC = () => {
   const dispatch = useAppDispatch();
   const sort: any = useSelector<any>((state) => state.filter.sort);

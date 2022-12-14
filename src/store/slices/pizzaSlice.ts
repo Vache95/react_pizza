@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
-import { CartItem } from "./cartSlice";
 
 // type FetchPizassArg = Record<string,string>
 type FetchPizassArg = {

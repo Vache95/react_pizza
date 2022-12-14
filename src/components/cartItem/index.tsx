@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { useDispatch } from "react-redux";
 import { addItem, minusItem, removeItem } from "../../store/slices/cartSlice";
 import { useAppDispatch } from "../../store/store";
 
