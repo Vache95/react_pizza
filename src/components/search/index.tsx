@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, useCallback, useRef, useState } from "react";
+import { ChangeEvent, FC, useCallback, useRef, useState, MouseEvent } from "react";
 import styles from "./search.module.scss";
 import Close from "../../assets/img/close.svg";
 import debounce from "lodash.debounce";
@@ -6,11 +6,12 @@ import { setSearchValue } from "../../store/slices/filterSlice";
 import { useDispatch } from "react-redux";
 
 const Search: FC = () => {
+  
   const [value, setValue] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
-  const onClickClear = (): void => {
+  const onClickClear = (event: MouseEvent<HTMLImageElement>): void => {
     dispatch(setSearchValue(""));
     setValue("");
     inputRef.current?.focus();
@@ -23,10 +24,11 @@ const Search: FC = () => {
     []
   );
 
-  const onChangeInputs = (event: any) => {
+  const onChangeInputs = (event: ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
     updateInput(event.target.value);
   };
+
   return (
     <div className={styles.root}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className={styles.icon}>
@@ -42,7 +44,7 @@ const Search: FC = () => {
         placeholder="Поиск пиццы..."
         value={value}
       />
-      {value && <img className={styles.clearIcon} src={Close} alt="cose" onClick={() => onClickClear()} />}
+      {value && <img className={styles.clearIcon} src={Close} alt="cose" onClick={onClickClear} />}
     </div>
   );
 };

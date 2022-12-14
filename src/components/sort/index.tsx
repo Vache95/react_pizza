@@ -1,13 +1,16 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState, MouseEvent, MouseEventHandler } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { SortPizza } from "../../store/slices/filterSlice";
 import "../../scss/components/_sort.scss";
+import { useAppDispatch } from "../../store/store";
 
 type sortItem = {
   name: string;
   sortProperty: string;
 };
-
+// type PopupClick = MouseEvent<HTMLBodyElement> & {
+//   path: Node[];
+// };
 export const list: sortItem[] = [
   { name: "популярности", sortProperty: "rating" },
   { name: "цене", sortProperty: "price" },
@@ -15,25 +18,28 @@ export const list: sortItem[] = [
 ];
 
 const Sort: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const sort: any = useSelector<any>((state) => state.filter.sort);
 
   const sortRef = useRef(null);
   const [toggle, setToggle] = useState(false);
 
-  const onClickListItem = (obj: object): void => {
+  const onClickListItem = (obj: sortItem): void => {
     dispatch(SortPizza(obj));
   };
 
   useEffect(() => {
     const handleClickOutside = (event: any): void => {
-      if (!event.path.includes(sortRef.current)) {
+      const _event = event as MouseEvent & {
+        path: Node[];
+      };
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setToggle(false);
       } else {
         setToggle(true);
       }
     };
-    document.addEventListener("click", handleClickOutside);
+    document.body.addEventListener("click", handleClickOutside);
     return () => document.body.removeEventListener("click", handleClickOutside);
   }, []);
 

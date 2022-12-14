@@ -1,25 +1,30 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { useEffect } from "react";
 import MyLoader from "../components/pizzaBlock/components/skeleton";
 import PizzaBlock from "../components/pizzaBlock";
 import Sort from "../components/sort";
 import Categories from "../components/categories";
 import Pagination from "../components/pagination";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { setCategoryId, seyPageCount, seyFilters } from "../store/slices/filterSlice";
 import { useNavigate } from "react-router-dom";
 import qs from "qs";
 import { list } from "../components/sort";
-
+// import { chunk } from "../utils/math";
 import { fetchPizzas, selectFilter, selectPizza } from "../store/slices/pizzaSlice";
+import { useAppDispatch } from "../store/store";
 
 const Home: FC = () => {
+  import("../utils/math").then((math) => {
+    console.log(math.chunk(22, 44));
+  });
+
   const categoryId: any = useSelector<any>((state) => state.filter.categoryId);
   const sortType: any = useSelector<any>((state) => state.filter.sort.sortProperty);
   const pageCount: any = useSelector<any>((state) => state.filter.pageCount);
   const { searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizza);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onClickCategory = (id: number): void => {
@@ -42,7 +47,6 @@ const Home: FC = () => {
 
   useEffect(() => {
     dispatch(
-      // @ts-ignore
       fetchPizzas({
         pageCount,
         categoryId,
@@ -62,12 +66,18 @@ const Home: FC = () => {
   }, [sortType, categoryId, pageCount]);
   useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      const sortList = list.find((obj) => obj.sortProperty === params.sortType);
-
-      dispatch(seyFilters({ ...params, sortList }));
+      const params: unknown = qs.parse(window.location.search.substring(1));
+      const sort: unknown = list.find(
+        //@ts-ignore
+        (obj) => obj.sortProperty === params.sortType
+      );
+      dispatch(
+        //@ts-ignore
+        seyFilters({ ...params, sort })
+      );
     }
   }, []);
+
   return (
     <>
       <div className="container">

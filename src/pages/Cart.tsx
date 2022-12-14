@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CartEmpty from "../components/cartEmpty";
@@ -78,7 +78,7 @@ const Cart: FC = () => {
           </div>
         </div>
         <div className="content__items">
-          {items.map((item:any) => (
+          {items.map((item: any) => (
             <CartItem key={item.id} {...item} />
           ))}
         </div>

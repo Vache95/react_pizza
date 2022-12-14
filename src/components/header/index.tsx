@@ -8,6 +8,7 @@ import { selectCart } from "../../store/slices/pizzaSlice";
 import { FC } from "react";
 
 const Header: FC = () => {
+  
   const { items, totalPrice } = useSelector(selectCart);
   const totalCount = items.reduce((sum: number, item:any) => sum + item.count, 0);
   const { pathname } = useLocation();
