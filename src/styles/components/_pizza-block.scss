@@ -1,6 +1,6 @@
 @import '../variables';
 
-.pizza-block-wrapper{
+.pizza-block-wrapper {
   display: flex;
   justify-content: center;
 }
@@ -9,6 +9,7 @@
   width: 280px;
   text-align: center;
   margin-bottom: 65px;
+
   &__image {
     width: 260px;
   }
@@ -27,6 +28,8 @@
     flex-direction: column;
     padding: 6px;
 
+
+
     ul {
       display: flex;
       flex: 1;
@@ -41,12 +44,19 @@
         cursor: pointer;
         font-weight: 600;
         font-size: 14px;
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-        -khtml-user-select: none; /* Konqueror HTML */
-        -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-        user-select: none; /* Non-prefixed version, currently
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Old versions of Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+
+        /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
         &.active {
           background: #ffffff;
@@ -63,6 +73,11 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
+
+    svg {
+      width: 15px;
+      height: 10px;
+    }
   }
 
   &__price {

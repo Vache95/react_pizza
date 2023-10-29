@@ -1,7 +1,8 @@
 .root {
   position: relative;
-  left: -120px;
+  margin-bottom: 20px;
 }
+
 .input {
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 12px 20px;
@@ -13,9 +14,11 @@
 
   &:focus {
     border: 1px solid rgba(0, 0, 0, 0.2);
-    width: 450px;
+    max-width: 450px;
+    width: 100%;
   }
 }
+
 .icon {
   width: 24px;
   height: 24px;
@@ -24,6 +27,7 @@
   top: 12px;
   left: 12px;
 }
+
 .clearIcon {
   width: 24px;
   height: 24px;
