@@ -10,6 +10,6 @@ npm start
 ```
 ## Deploy Link
 
-`React Pizza` : <>
+`React Pizza` : <https://teal-jalebi-81a381.netlify.app>
 
 
