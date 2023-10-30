@@ -23,10 +23,11 @@ const FullPizza: React.FC = () => {
 	if (!pizza) {
 		return <>...loading</>;
 	}
+	console.log(pizza, 'pizza');
 
 	return (
 		<div className='container'>
-			<img src={pizza?.imageUrl} alt='' />
+			<img src={pizza?.imageUrl} className='fullpizza' alt='' />
 			<h2>{pizza?.title}</h2>
 			<p>Lorem ipsum dolor sit amet.</p>
 			<h4>{pizza?.price} $</h4>

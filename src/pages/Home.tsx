@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import qs from 'qs';
 import { MyLoader, PizzaBlock, Categories, Pagination, Search } from 'components';
-import { list } from 'utils';
+import { LIST } from 'utils';
 import { setCategoryId, seyPageCount, seyFilters } from 'store/slices/filterSlice/filterSlice';
 import { selectFilter, selectPizza } from 'store/selector';
 import { fetchPizzasThunk } from 'store/slices/pizzaSlice/thunk';
@@ -28,7 +28,7 @@ const Home: React.FC = () => {
 
 	const pizza = items
 		.filter(obj => {
-			if (obj.title.toLowerCase().includes(searchValue)) {
+			if (obj.title.toLowerCase().slice(0, searchValue.length) === searchValue.toLocaleLowerCase()) {
 				return true;
 			}
 			return false;
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
 	useEffect(() => {
 		if (window.location.search) {
 			const params: unknown = qs.parse(window.location.search.substring(1));
-			const sort: unknown = list.find(
+			const sort: unknown = LIST.find(
 				//@ts-ignore
 				obj => obj.sortProperty === params.sortType
 			);

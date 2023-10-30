@@ -1,21 +1,11 @@
-type Sort = {
-    name: string;
-    sortProperty: string;
-};
-
-interface FilterSliceState {
-    searchValue: string;
-    categoryId: number;
-    pageCount: number;
-    sort: Sort;
-}
+import { FilterSliceState } from 'store/types';
 
 export const initialState: FilterSliceState = {
-    searchValue: '',
-    categoryId: 0,
-    pageCount: 1,
-    sort: {
-        name: 'популярности',
-        sortProperty: 'rating',
-    },
+	searchValue: '',
+	categoryId: 0,
+	pageCount: 1,
+	sort: {
+		name: 'популярности',
+		sortProperty: 'rating',
+	},
 };

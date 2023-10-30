@@ -87,7 +87,10 @@ body {
 .container {
   width: $container-width;
   margin: 0 auto;
-
+   .fullpizza{
+    max-width:584px;
+    width: 100%;
+   }
   &--cart {
     max-width: 820px;
     margin: 90px auto;

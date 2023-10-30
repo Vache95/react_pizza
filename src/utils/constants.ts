@@ -10,9 +10,9 @@ export const NOTH_FOUND: string = '*';
 export const dataCategories: string[] = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
 // pizza-block
-export const typesName: string[] = ['тонкое', 'традиционное'];
+export const TYPES_NAME: string[] = ['тонкое', 'традиционное'];
 
-export const list: ISortItem[] = [
+export const LIST: ISortItem[] = [
 	{ name: 'популярности', sortProperty: 'rating' },
 	{ name: 'цене', sortProperty: 'price' },
 	{ name: 'алфавиту', sortProperty: 'title' },

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { addItem, CartItem } from 'store/slices/cartSlice/cartSlice';
+import { addItem } from 'store/slices/cartSlice/cartSlice';
 import { IPizzaBlockProps } from './types';
-import { typesName } from 'utils';
+import { CartItem } from 'store/types';
+import { TYPES_NAME } from 'utils';
 import { ReactComponent as Plus } from 'assets/icons/plus.svg';
 
 const PizzaBlock: React.FC<IPizzaBlockProps> = ({ title, price, imageUrl, sizes, types, id }) => {
@@ -20,7 +21,7 @@ const PizzaBlock: React.FC<IPizzaBlockProps> = ({ title, price, imageUrl, sizes,
 			title,
 			price,
 			imageUrl,
-			type: typesName[active],
+			type: TYPES_NAME[active],
 			size: sizes[activePizza],
 			count: 0,
 		};
@@ -39,7 +40,7 @@ const PizzaBlock: React.FC<IPizzaBlockProps> = ({ title, price, imageUrl, sizes,
 					<ul>
 						{types?.map((e, i) => (
 							<li className={activePizza === i ? 'active' : ''} onClick={() => setactivePizza(i)} key={i}>
-								{typesName[e]}
+								{TYPES_NAME[e]}
 							</li>
 						))}
 					</ul>

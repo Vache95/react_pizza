@@ -1,15 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchPizzasThunk } from './thunk';
 import { initialState } from './initialState';
-
-type PizzaItems = {
-	title: string;
-	price: number;
-	imageUrl: string;
-	sizes: number[];
-	types: number[];
-	id: string;
-};
+import { PizzaItems } from 'store/types';
 
 export const pizzaSlice = createSlice({
 	name: 'pizza',

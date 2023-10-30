@@ -1,19 +1,6 @@
-export type CartItem = {
-    id: string;
-    title: string;
-    price: number;
-    imageUrl: string;
-    type: string;
-    size: number;
-    count: number;
-};
-
-interface CartSliceState {
-    totalPrice: number;
-    items: CartItem[];
-}
+import { CartSliceState } from 'store/types';
 
 export const initialState: CartSliceState = {
-    totalPrice: 0,
-    items: [],
+	totalPrice: 0,
+	items: [],
 };

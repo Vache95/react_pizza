@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useRef, useState, MouseEvent } from 'react';
+import { ChangeEvent, useCallback, useRef, useState } from 'react';
 import { useAppDispatch } from 'hooks';
 import debounce from 'lodash.debounce';
 import { setSearchValue } from 'store/slices/filterSlice/filterSlice';
